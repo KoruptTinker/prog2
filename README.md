@@ -1,2 +1,3 @@
 # prog2
-helper files for the intro cg class's second programming assignment
+Just follow the buttons on the home page to grade each part.
+start with index.html.
