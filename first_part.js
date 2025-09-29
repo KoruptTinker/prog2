@@ -76,15 +76,13 @@ function loadTriangles() {
     if (inputTriangles != String.null) { 
         var whichSetVert; // index of vertex in current triangle set
         var whichSetTri; // index of triangle in current triangle set
-        var coordArray = []; // 1D array of vertex coords for WebGL
+        var coordArray = []; 
         var takenSoFar = 0;
         
         for (var whichSet=0; whichSet<inputTriangles.length; whichSet++) {
             
-            // set up the vertex coord array
             for (whichSetVert=0; whichSetVert<inputTriangles[whichSet].vertices.length; whichSetVert++){
                 coordArray = coordArray.concat(inputTriangles[whichSet].vertices[whichSetVert]);
-                // console.log(inputTriangles[whichSet].vertices[whichSetVert]);
             }
             for (whichSetTri=0; whichSetTri<inputTriangles[whichSet].triangles.length; whichSetTri++){
                 console.log(inputTriangles[whichSet].triangles[whichSetTri] + takenSoFar);
@@ -94,10 +92,9 @@ function loadTriangles() {
             }
             takenSoFar += inputTriangles[whichSet].vertices.length;
         } 
-        vertexBuffer = gl.createBuffer(); // init empty vertex coord buffer
-        gl.bindBuffer(gl.ARRAY_BUFFER,vertexBuffer); // activate that buffer
-        gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(coordArray),gl.STATIC_DRAW); // coords to that buffer
-
+        vertexBuffer = gl.createBuffer(); 
+        gl.bindBuffer(gl.ARRAY_BUFFER,vertexBuffer); 
+        gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(coordArray),gl.STATIC_DRAW); 
         indexBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,indexBuffer);
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint16Array(indexArray),gl.STATIC_DRAW);
@@ -108,14 +105,12 @@ function loadTriangles() {
 // setup the webGL shaders
 function setupShaders() {
     
-    // define fragment shader in essl using es6 template strings
     var fShaderCode = `
         void main(void) {
             gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0); // all fragments are white
         }
     `;
     
-    // define vertex shader in essl using es6 template strings
     var vShaderCode = `
         attribute vec3 vertexPosition;
 
@@ -150,10 +145,10 @@ function setupShaders() {
             if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) { // bad program link
                 throw "error during shader program linking: " + gl.getProgramInfoLog(shaderProgram);
             } else { // no shader program link errors
-                gl.useProgram(shaderProgram); // activate shader program (frag and vert)
-                vertexPositionAttrib = // get pointer to vertex shader input
+                gl.useProgram(shaderProgram); 
+                vertexPositionAttrib =
                     gl.getAttribLocation(shaderProgram, "vertexPosition"); 
-                gl.enableVertexAttribArray(vertexPositionAttrib); // input to shader from array
+                gl.enableVertexAttribArray(vertexPositionAttrib); 
             } // end if no shader program link errors
         } // end if no compile errors
     } // end try 

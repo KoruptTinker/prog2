@@ -91,7 +91,7 @@ function loadTriangles() {
             for (whichSetTri=0; whichSetTri<inputTriangles[whichSet].triangles.length; whichSetTri++){
                 for(var i = 0; i < inputTriangles[whichSet].triangles[whichSetTri].length; i++){
                     indexArray.push(inputTriangles[whichSet].triangles[whichSetTri][i] + takenSoFar);
-                    colorArray.push(diffuse[0], diffuse[1], diffuse[2]); // push full RGB color for each vertex
+                    colorArray.push(diffuse[0], diffuse[1], diffuse[2]); 
                 }
             }
             takenSoFar += inputTriangles[whichSet].vertices.length;
@@ -136,15 +136,13 @@ function setupShaders() {
     `;
     
     try {
-        // console.log("fragment shader: "+fShaderCode);
         var fShader = gl.createShader(gl.FRAGMENT_SHADER); // create frag shader
         gl.shaderSource(fShader,fShaderCode); // attach code to shader
         gl.compileShader(fShader); // compile the code for gpu execution
 
-        // console.log("vertex shader: "+vShaderCode);
         var vShader = gl.createShader(gl.VERTEX_SHADER); // create vertex shader
-        gl.shaderSource(vShader,vShaderCode); // attach code to shader
-        gl.compileShader(vShader); // compile the code for gpu execution
+        gl.shaderSource(vShader,vShaderCode); 
+        gl.compileShader(vShader); 
             
         if (!gl.getShaderParameter(fShader, gl.COMPILE_STATUS)) { // bad frag shader compile
             throw "error during fragment shader compile: " + gl.getShaderInfoLog(fShader);  
